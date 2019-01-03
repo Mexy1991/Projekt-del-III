@@ -1,6 +1,7 @@
 public class Population{
 	private Population population;
 	private double omega;
+	private int size;
 
 
 /******
@@ -41,6 +42,7 @@ decision.
 
 	public void add(Individual i){
 		//Adds individual i to this population
+		//noget med size++;
 		return;
 	}
 
@@ -52,16 +54,26 @@ decision.
 
 	public void remove(Individual i){
 		//Removes the individual i from this population, if it exists
+		//Noget med size--;
 		return;
 	}
 
 	public int size(){
 		//Returns the number of individuals in this population
-		return;
+		return size;
 	}
 
 	public void epidemic(){
 		//This method models an epidemic
+
+	/*In an epidemic, the 5 fittest individuals always survive, 
+	* while the 5 least fit always die; 
+	* for each remaining individual p, the probability of surviving the epidemic is fit(p)^2
+	* To implement epidemics you need to decide whether or not to perform an action with a 
+	* given probability. You should use method 
+	* boolean getRandomEvent(double probability) in class RandomUtils to make this decision.
+	*/ 
+
 		return;
 	}
 
