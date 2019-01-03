@@ -8,7 +8,6 @@ public class EventQueue{
 
 	public void add(Event e){
 		//Adds event e to this queue
-
 		return;
 
 	}

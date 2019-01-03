@@ -46,7 +46,6 @@ decision.
 
 	public boolean contains(Individual i){
 		//Returns true if this this population contains the individual i
-		if()
 		return;
 
 	}
