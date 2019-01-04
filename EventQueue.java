@@ -1,17 +1,22 @@
+import java.util.ArrayList;
+
 public class EventQueue implements Iterable<Event>{
-	private int current = 0;
+	private int current = 0; 
 	private String[] contents;
 
 	//Contructor
 	EventQueue eventQueue = new EventQueue();
-
+	ArrayList<Events> queue = new ArrayList<Events>();
+		
+	
 
 
 
 	public void add(Event e){
 		//Adds event e to this queue
-		return;
-
+		for (Event e : queue) {
+		   queue.add(e);
+		   }
 	}
 
 	public Event next(){
@@ -19,12 +24,22 @@ public class EventQueue implements Iterable<Event>{
 	/*	if (eventQueue.hasNext())
 			return e.next();
 		else return;
-
-
 		*/
 
-		current = current + 1;
-		return contents[current-1];
+		Event nextEvent = queue.get(0);
+		ArrayList tempArrayList = queue;
+
+		for (ArrayList whatever : tempArrayList){
+		//Do something
+		if(whatever.time() < nextEvent.time()){
+			nextEvent = whatever;
+			}
+		}
+
+		tempArrayList.remove(nextEvent);
+
+		return nextEvent;
+
 	}
 
 	public boolean hasNext(){
@@ -32,8 +47,17 @@ public class EventQueue implements Iterable<Event>{
 		/*if(eventQueue == isEmpty())
 			return false;
 	*/
-			return (current < contents.length);
+			//return (current < contents.length);
 
+			if(queue =!isEmpty()) {
+			return true;
+			}
+			else{
+			return false;
+			}
+
+
+			
 	}
 
 
