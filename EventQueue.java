@@ -1,4 +1,6 @@
-public class EventQueue{
+public class EventQueue implements Iterable<Event>{
+	private int current = 0;
+	private String[] contents;
 
 	//Contructor
 	EventQueue eventQueue = new EventQueue();
@@ -14,15 +16,24 @@ public class EventQueue{
 
 	public Event next(){
 		//Returns the next event in this queue and removes it afterwards
-		if (eventQueue.hasNext())
+	/*	if (eventQueue.hasNext())
 			return e.next();
 		else return;
+
+
+		*/
+
+		current = current + 1;
+		return contents[current-1];
 	}
 
 	public boolean hasNext(){
 		//Returns true if the queue is not empty
-		if(eventQueue == isEmpty())
+		/*if(eventQueue == isEmpty())
 			return false;
+	*/
+			return (current < contents.length);
+
 	}
 
 
