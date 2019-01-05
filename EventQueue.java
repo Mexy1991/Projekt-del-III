@@ -86,13 +86,15 @@ order in which they are returned by next().
 
 
 public class EventQueue{
-	EventQueue queue;
-	ArrayList<Event> listOfEvents = new ArrayList<Event>();
+	EventQueue eventQueue;
+	//ArrayList<Event> listOfEvents = new ArrayList<Event>();
+	ArrayList<Event> queue = new ArrayList<Event>();
 	//arryalist eller linkedlist fordi de er variable størrelser og ordered
 
 	public EventQueue(){
 		// Constructs a new empty queue
-		EventQueue queue = new EventQueue();
+		//EventQueue queue = new EventQueue();
+
 		queue = this.queue;
 	}
 
@@ -114,8 +116,8 @@ public class EventQueue{
     	* Måske det bliver bedre med Iterator
     	*/
 		
-    	Event firstEvent = listOfEvents.get(0);
-    	ArrayList tempListOfEvents = listOfEvents;
+    	Event firstEvent = queue.get(0);
+    	ArrayList tempListOfEvents = queue;
 
     	//Mangler hele tids-halløjet
 
@@ -132,12 +134,14 @@ public class EventQueue{
 
     }
 
-    public boolean hasNext(){
+   public boolean hasNext(){
     	//This method returns true, if the event queue is not empty
-    	if(listOfEvents.isEmpty()==true)
+    	if(queue.isEmpty()==true)
     		return false;
     		else return true;
     	}
+
+    	
 }
 
     	

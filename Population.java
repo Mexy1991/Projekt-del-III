@@ -1,4 +1,4 @@
-public class Population{
+/*public class Population{
 	private Population population;
 	private double omega;
 	private int size;
@@ -29,7 +29,7 @@ decision.
 ******/
 
 
-
+/*
 	//Constructor
 
 	public Population(double omega){
@@ -73,7 +73,7 @@ decision.
 	* given probability. You should use method 
 	* boolean getRandomEvent(double probability) in class RandomUtils to make this decision.
 	*/ 
-
+/*
 		return;
 	}
 
@@ -88,6 +88,58 @@ decision.
 	}
 
 	//Har vi brug for at redefinere toString?
+
+
+}
+
+*/
+
+//Vi skal nok lave en arraylist. 
+
+import java.util.ArrayList;
+
+
+public class Population{
+	private double omega;
+	private Population population;
+	private City[] bestPath;
+
+	public Population(double omega){
+		// Constructs a new empty population with the fitness normalisation 
+		// parameter omega
+		Population population = new Population(omega);
+		population = this.population;
+
+	}
+
+	public void add(Individual i){
+		//Adds the individual i to this population
+		population.add(i);
+
+	}
+
+
+	public boolean contains(Individual i){
+		//Returns true if this population contains i
+		return population.contains(i);
+	}
+
+	public int size(){
+		//Returns the size of the population
+		return population.size();
+	}
+
+	public City[] bestPath(){
+		return bestPath;
+	}
+
+
+
+
+
+
+
+
 
 
 }
