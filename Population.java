@@ -1,113 +1,107 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 
-public class Population
-{
-  private Object contents;
-  private City[] bestPath;
-  private Object[] params = new Object[2];
-  
-  public Population(double paramDouble)
-  {
-    this.contents = new ArrayList();
-    this.bestPath = null;
-    this.params[0] = Double.valueOf(Double.MAX_VALUE);
-    this.params[1] = Double.valueOf(paramDouble);
-  }
-  
-  public void add(Individual paramIndividual)
-  {
-    ((ArrayList)this.contents).add(paramIndividual);
-    if (paramIndividual.cost() < ((Double)this.params[0]).doubleValue())
-    {
-      this.params[0] = Double.valueOf(paramIndividual.cost());
-      this.bestPath = paramIndividual.path();
-    }
-  }
-  
-  public void remove(Individual paramIndividual)
-  {
-    Iterator localIterator = ((ArrayList)this.contents).iterator();
-    while (localIterator.hasNext()) {
-      if (localIterator.next() == paramIndividual) {
-        localIterator.remove();
-      } else {
-        localIterator.hasNext();
-      }
-    }
-  }
-  
-  public boolean contains(Individual paramIndividual)
-  {
-    return ((ArrayList)this.contents).contains(paramIndividual);
-  }
-  
-  public int size()
-  {
-    return ((ArrayList)this.contents).size();
-  }
-  
-  public void epidemic()
-  {
-    for (int i = 0; i < 5; i++) {
-      pigeon();
-    }
-    ArrayList localArrayList = new ArrayList();
-    Object localObject;
-    for (int j = 0; j < 5; j++)
-    {
-      localObject = eagle();
-      remove((Individual)localObject);
-      localArrayList.add(localObject);
-    }
-    for (Iterator localIterator = ((ArrayList)this.contents).iterator(); localIterator.hasNext();)
-    {
-      localObject = localIterator.next();
-      if (RandomUtils.getRandomEvent(Math.pow(fitness((Individual)localObject), 2.0D))) {
-        localArrayList.add(localObject);
-      }
-    }
-    this.contents = localArrayList;
-  }
-  
-  public double fitness(Individual paramIndividual)
-  {
-    double d1 = ((Double)this.params[0]).doubleValue();
-    d1 *= d1;
-    double d2 = ((Double)this.params[1]).doubleValue();
-    return (d2 + d1 / (paramIndividual.cost() * paramIndividual.cost())) / (1.0D + 2.0D * d2);
-  }
-  
-  private void pigeon()
-  {
-    double d = Double.MIN_VALUE;
-    Individual localIndividual = null;
-    for (Object localObject : (ArrayList)this.contents) {
-      if (((Individual)localObject).cost() > d)
-      {
-        d = ((Individual)localObject).cost();
-        localIndividual = (Individual)localObject;
-      }
-    }
-    remove(localIndividual);
-  }
-  
-  private Individual eagle()
-  {
-    Double localDouble = Double.valueOf(Double.MAX_VALUE);
-    Individual localIndividual = null;
-    for (Object localObject : (ArrayList)this.contents) {
-      if (((Individual)localObject).cost() < localDouble.doubleValue())
-      {
-        localDouble = Double.valueOf(((Individual)localObject).cost());
-        localIndividual = (Individual)localObject;
-      }
-    }
-    return localIndividual;
-  }
-  
-  public City[] bestPath()
-  {
-    return this.bestPath;
-  }
+public class Population{
+
+	private ArrayList population;
+	private double omega;
+	private double lowestCost;
+	private City[] bestPath;
+	
+	public Population(double omega){
+		// Constructor that takes double omega as input and creates a new, empty population
+		ArrayList population = new ArrayList();
+		omega = this.omega;
+		population = this.population;
+		lowestCost = Double.MAX_VALUE;
+	}
+
+	public void add(Individual i){
+		// This method adds the individual i to this population
+		population.add(i);
+		if(i.cost() < lowestCost){
+			lowestCost = i.cost();
+			bestPath = i.path();
+		}
+	}
+
+	public boolean contains(Individual i){
+		// This method returns true if this population contains the individual i
+		return population.contains(i);
+	}
+	public void remove(Individual i){
+		// This methos removes the individual i from this population, if it exists
+		if(population.contains(i))
+		population.remove(i);
+	}
+	
+	public int size(){
+	// This method returns the amount of individuals in the current population
+	return population.size();
+	}
+
+	public double fitness(Individual i){
+		// This method returns the fitness of individual i 
+		return(omega + Math.pow((lowestCost/i.cost()),2)/(1.0+(2.0*omega)));
+	}
+
+	public City[] bestPath(){
+		// This method returns a copy of the best path ever present in an Individual in the current population
+		return bestPath;
+	}
+
+	public void epidemic(){
+		// This method models epidemic in this population
+
+		//Finds the five worst fitted individuals
+		for (int i = 0; i < 5; i++){
+		findWorstFitted(); 
+	}
+
+	ArrayList tempList = new ArrayList();
+	Object tempIndividual;
+
+	// Finds the five best fitted individuals, removes them from the population and stores them in a temporary ArrayList
+	for(int j = 0; j < 5; j++){
+		tempIndividual = findBestFitted(); 
+		remove((Individual)tempIndividual);
+		tempList.add(tempIndividual);
+	} 
+
+	// Creates a random event to determine when the epidemic should take place. It is calculated by the formula fit(p)^2 and added to the population
+	for (Object temp : (ArrayList)population)
+		if (tempList.size() > 0) {
+			RandomUtils.getRandomEvent(Math.pow(fitness((Individual)temp), 2.0));
+			tempList.add(temp);
+		}
+		population = tempList;
+		
 }
+
+	public void findWorstFitted(){
+		// Finds the worst fitted individual with the highest cost in the current population and removes them
+		double min = Double.MIN_VALUE;
+		Individual tempIndividual = null;
+
+		for (Object temp : (ArrayList)population)
+			if (((Individual)temp).cost() > min) {
+				min = ((Individual)temp).cost();
+				tempIndividual = (Individual)temp;
+			}
+		remove(tempIndividual);
+	}
+
+	public Individual findBestFitted(){
+		// Returns the best fitted individual with the lowest cost in the current population
+		double max = Double.MAX_VALUE;
+		Individual tempIndividual = null;
+		
+		for (Object temp : (ArrayList)population)
+			if (((Individual)temp).cost() < max) {
+				max = ((Individual)temp).cost();
+				tempIndividual = (Individual)temp;
+			}
+		return tempIndividual;
+	}
+}
+
+
