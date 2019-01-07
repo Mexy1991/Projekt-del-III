@@ -3,52 +3,54 @@ import java.util.Iterator;
 
 public class EventQueue{
 	EventQueue eventQueue;
-	//ArrayList<Event> listOfEvents = new ArrayList<Event>();
 	ArrayList<Event> queue = new ArrayList<Event>();
-	//arryalist eller linkedlist fordi de er variable størrelser og ordered
-
 
 	public EventQueue(){
-		// Constructs a new empty queue
-		//EventQueue queue = new EventQueue();
-
+		// Constructs a new empty event queue
 		queue = this.queue;
 	}
 
-
 	public void add (Event e){
-		//Adds the event e to this event queue
+		// Adds the event e to this event queue
 		queue.add(e);
-
 	}
 	
 	public Event next(){
-		// Return the next event in the queue and removes it afterwards. 
-    	// Events are sorted after time
-    	// Precondition: There is a next event. (Ikke?)
-		
+		// Return the next occuring event in the queue and removes it afterwards		
 		Event firstEvent = queue.get(0);
     	ArrayList tempListOfEvents = queue;
-		
-		Iterator a = queue.iterator();
-		
-			while(a.hasNext()){
-			System.out.println(a.next());
-			}
-			   			
+	
+		/*
+		Iterator it = queue.iterator();
+		while(it.hasNext()){
+			System.out.println(it.next());
+		}*/
+
+		for (Object tempIndividual : tempListOfEvents) 
+			if (((Event)tempIndividual).time() < firstEvent.time()) 
+			  firstEvent = (Event)tempIndividual;
 		tempListOfEvents.remove(firstEvent);
 		return firstEvent;
+	}
 
-    	
 
-    }
+
+
+	/*tempListOfEvents.remove(firstEvent);
+    return firstEvent;
+	}*/
+	
+
 
    public boolean hasNext(){
-    	//This method returns true, if the event queue is not empty
-    	if(queue.isEmpty()==true)
+		//This method returns true, if the event queue is not empty
+    	if(queue.isEmpty() == true)
     		return false;
-    		else return true;
-    	}
+			else return true;
+		}
+
+
+    
 
     	
 }
