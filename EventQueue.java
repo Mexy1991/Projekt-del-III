@@ -3,52 +3,43 @@ import java.util.Iterator;
 
 public class EventQueue{
 	EventQueue eventQueue;
-	//ArrayList<Event> listOfEvents = new ArrayList<Event>();
 	ArrayList<Event> queue = new ArrayList<Event>();
-	//arryalist eller linkedlist fordi de er variable størrelser og ordered
-
 
 	public EventQueue(){
-		// Constructs a new empty queue
-		//EventQueue queue = new EventQueue();
-
+		// Constructs a new empty event queue
 		queue = this.queue;
 	}
 
-
 	public void add (Event e){
-		//Adds the event e to this event queue
+		// Adds the event e to this event queue
 		queue.add(e);
-
 	}
 	
 	public Event next(){
-		// Return the next event in the queue and removes it afterwards. 
-    	// Events are sorted after time
-    	// Precondition: There is a next event. (Ikke?)
+		
+		
+		// Return the next occuring event in the queue and removes it afterwards		
 		
 		Event firstEvent = queue.get(0);
     	ArrayList tempListOfEvents = queue;
 		
-		Iterator a = queue.iterator();
+		for (Object localObject : tempListOfEvents) {
+			if (((Event)localObject).time() < firstEvent.time()) {
+			  firstEvent = (Event)localObject;
 		
-			while(a.hasNext()){
-			System.out.println(a.next());
-			}
-			   			
-		tempListOfEvents.remove(firstEvent);
-		return firstEvent;
+	
+		}
+		}
+	tempListOfEvents.remove(firstEvent);
+    return firstEvent;
+	}
+	
 
-    	
-
-    }
 
    public boolean hasNext(){
-    	//This method returns true, if the event queue is not empty
-    	if(queue.isEmpty()==true)
+		//This method returns true, if the event queue is not empty
+    	if(queue.isEmpty())
     		return false;
-    		else return true;
-    	}
-
-    	
+			else return true;
+		}
 }
