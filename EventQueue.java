@@ -7,6 +7,7 @@ public class EventQueue{
 	ArrayList<Event> queue = new ArrayList<Event>();
 	//arryalist eller linkedlist fordi de er variable størrelser og ordered
 
+
 	public EventQueue(){
 		// Constructs a new empty queue
 		//EventQueue queue = new EventQueue();
@@ -21,38 +22,22 @@ public class EventQueue{
 
 	}
 	
-	
-
 	public Event next(){
 		// Return the next event in the queue and removes it afterwards. 
     	// Events are sorted after time
     	// Precondition: There is a next event. (Ikke?)
-
-    	/*
-    	* OBS OBS OBS OBS - Jeg synes, det der forloop er liiidt meget 
-    	* copy-paste. Måske vi kan finde på en anden måde?
-    	* Måske det bliver bedre med Iterator
-    	*/
 		
-		    	Event firstEvent = queue.get(0);
+		Event firstEvent = queue.get(0);
     	ArrayList tempListOfEvents = queue;
-
 		
-		
-		Iterator a =queue.iterator();
+		Iterator a = queue.iterator();
 		
 			while(a.hasNext()){
-				
 			System.out.println(a.next());
 			}
-
-    	//Mangler hele tids-halløjet
-
-
-
+			   			
 		tempListOfEvents.remove(firstEvent);
-
-    	return firstEvent;
+		return firstEvent;
 
     	
 
@@ -67,25 +52,3 @@ public class EventQueue{
 
     	
 }
-
-    	
-
-
-
-
-
-
-
-		/*
-
-    Event firstEvent = listOfEvents.get(0);
-    Event nextEvent = listOfEvents.get(firstEvent+1);
-    ArrayList tempListOfEvents = listOfEvents;
-    for (nextEvent2 : tempListOfEvents) {
-      if (nextEvent.time() < firstEvent.time()) {
-        firstEvent = (Event)nextEvent;
-      }
-    }
-    tempListOfEvents.remove(firstEvent);
-    return firstEvent;
-    */
