@@ -28,6 +28,7 @@ public class Population{
 		// This method returns true if this population contains the individual i
 		return population.contains(i);
 	}
+
 	public void remove(Individual i){
 		// This methos removes the individual i from this population, if it exists
 		if(population.contains(i))
@@ -36,12 +37,12 @@ public class Population{
 	
 	public int size(){
 	// This method returns the amount of individuals in the current population
-	return population.size();
+		return population.size();
 	}
 
 	public double fitness(Individual i){
 		// This method returns the fitness of individual i 
-		return(omega + Math.pow((lowestCost/i.cost()),2)/(1.0+(2.0*omega)));
+		return((omega + Math.pow((lowestCost/i.cost()),2))/(1.0+(2.0*omega)));
 	}
 
 	public City[] bestPath(){
@@ -52,16 +53,19 @@ public class Population{
 	public void epidemic(){
 		// This method models epidemic in this population
 
-		//Finds the five worst fitted individuals
-		for (int i = 0; i < 5; i++){
-		findWorstFitted(); 
-	}
+		// Finds the five worst fitted individuals
+		int i = 0;
+		while(i < 5){
+			findWorstFitted();
+			i++; 
+		}
 
 	ArrayList tempList = new ArrayList();
 	Object tempIndividual;
 
 	// Finds the five best fitted individuals, removes them from the population and stores them in a temporary ArrayList
-	for(int j = 0; j < 5; j++){
+	int j = 0;
+	while(j < 5){
 		tempIndividual = findBestFitted(); 
 		remove((Individual)tempIndividual);
 		tempList.add(tempIndividual);
@@ -74,7 +78,6 @@ public class Population{
 			tempList.add(temp);
 		}
 		population = tempList;
-		
 }
 
 	public void findWorstFitted(){

@@ -33,24 +33,10 @@ public class EventQueue{
 		return firstEvent;
 	}
 
-
-
-
-	/*tempListOfEvents.remove(firstEvent);
-    return firstEvent;
-	}*/
-	
-
-
-   public boolean hasNext(){
+   	public boolean hasNext(){
 		//This method returns true, if the event queue is not empty
     	if(queue.isEmpty() == true)
     		return false;
 			else return true;
-		}
-
-
-    
-
-    	
+		}    	
 }
